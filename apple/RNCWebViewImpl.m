@@ -239,6 +239,45 @@ RCTAutoInsetsProtocol>
   }
 }
 
+- (void) openMenu:(NSDictionary *)point {
+   if (self.menuItems.count == 0) {
+        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        menuController.menuItems = nil;
+        [menuController setMenuVisible:NO animated:YES];
+        return;
+    }
+
+    if (!point || ![point isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+
+    if (!point[@"x"] || !point[@"y"]) {
+        return;
+    }
+
+    CGFloat x = [point[@"x"] floatValue];
+    CGFloat y = [point[@"y"] floatValue];
+
+    CGRect targetRectangle = CGRectMake(x, y, 100, 100);
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    NSMutableArray *menuControllerItems = [NSMutableArray arrayWithCapacity:self.menuItems.count];
+
+    for(NSDictionary *menuItem in self.menuItems) {
+      NSString *menuItemLabel = [RCTConvert NSString:menuItem[@"label"]];
+      NSString *menuItemKey = [RCTConvert NSString:menuItem[@"key"]];
+      NSString *sel = [NSString stringWithFormat:@"%@%@", CUSTOM_SELECTOR, menuItemKey];
+      UIMenuItem *item = [[UIMenuItem alloc] initWithTitle: menuItemLabel
+                                                    action: NSSelectorFromString(sel)];
+      [menuControllerItems addObject: item];
+    }
+
+
+
+    menuController.menuItems = menuControllerItems;
+    [menuController setTargetRect:targetRectangle inView:self];
+    [menuController setMenuVisible:YES animated:YES];
+}
+
 // Listener for long presses
 - (void)startLongPress:(UILongPressGestureRecognizer *)pressSender
 {

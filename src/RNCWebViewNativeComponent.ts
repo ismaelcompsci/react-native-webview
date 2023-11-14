@@ -264,6 +264,7 @@ export interface NativeCommands {
   injectJavaScript: (viewRef: React.ElementRef<HostComponent<NativeProps>>, javascript: string) => void;
   requestFocus: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   postMessage: (viewRef: React.ElementRef<HostComponent<NativeProps>>, data: string) => void;
+  openMenu: (viewRef: React.ElementRef<HostComponent<NativeProps>>, { x, y }: { x: number; y: number }) => void;
   // Android Only
   loadUrl: (viewRef: React.ElementRef<HostComponent<NativeProps>>, url: string) => void;
   clearFormData: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
@@ -273,7 +274,7 @@ export interface NativeCommands {
 }
 
 export const Commands = codegenNativeCommands<NativeCommands>({
-  supportedCommands: ['goBack', 'goForward', 'reload', 'stopLoading', 'injectJavaScript', 'requestFocus', 'postMessage', 'loadUrl', 'clearFormData', 'clearCache', 'clearHistory'],
+  supportedCommands: ['openMenu', 'goBack', 'goForward', 'reload', 'stopLoading', 'injectJavaScript', 'requestFocus', 'postMessage', 'loadUrl', 'clearFormData', 'clearCache', 'clearHistory'],
 });
 
 export default codegenNativeComponent<NativeProps>(

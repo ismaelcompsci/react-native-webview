@@ -129,6 +129,7 @@ shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
 
 + (void)setClientAuthenticationCredential:(nullable NSURLCredential*)credential;
 + (void)setCustomCertificatesForHost:(nullable NSDictionary *)certificates;
+- (void)openMenu:(NSDictionary *)point;
 - (void)postMessage:(NSString *_Nullable)message;
 - (void)injectJavaScript:(NSString *_Nullable)script;
 - (void)goForward;
