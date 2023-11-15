@@ -22,7 +22,8 @@ type WebViewCommands =
   | 'injectJavaScript'
   | 'loadUrl'
   | 'requestFocus'
-  | 'clearCache';
+  | 'clearCache'
+  | 'openMenu';
 
 type AndroidWebViewCommands = 'clearHistory' | 'clearFormData';
 

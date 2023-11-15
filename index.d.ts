@@ -42,11 +42,17 @@ declare class WebView<P = {}> extends Component<WebViewProps & P> {
      */
     postMessage: (message: string) => void;
     
+    /**
+     * open selection menu at x and y 
+     */
+    openMenu: ({x, y}: {x: number, y: number}) => void
+    
      /**
      * (Android only)
      * Removes the autocomplete popup from the currently focused form field, if present.
      */
     clearFormData?: () => void;
+
 
      /**
      * (Android only)
