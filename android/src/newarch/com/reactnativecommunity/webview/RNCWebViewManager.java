@@ -452,6 +452,11 @@ public class RNCWebViewManager extends ViewGroupManager<RNCWebViewWrapper>
   }
 
   @Override
+  public void openMenu(RNCWebViewWrapper view, int x, int y) {
+    view.getWebView().openMenu(x, y)
+  }
+
+  @Override
   public void postMessage(RNCWebViewWrapper view, String data) {
       try {
         JSONObject eventInitDict = new JSONObject();
