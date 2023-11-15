@@ -283,6 +283,7 @@ class RNCWebViewManagerImpl {
     val COMMAND_INJECT_JAVASCRIPT = 6
     val COMMAND_LOAD_URL = 7
     val COMMAND_FOCUS = 8
+    val COMMAND_OPEN_MENU = 9
 
     // android commands
     val COMMAND_CLEAR_FORM_DATA = 1000
@@ -302,6 +303,7 @@ class RNCWebViewManagerImpl {
         .put("clearFormData", COMMAND_CLEAR_FORM_DATA)
         .put("clearCache", COMMAND_CLEAR_CACHE)
         .put("clearHistory", COMMAND_CLEAR_HISTORY)
+        .put("openMenu", COMMAND_OPEN_MENU)
         .build()
     }
 
@@ -312,6 +314,11 @@ class RNCWebViewManagerImpl {
         "goForward" -> webView.goForward()
         "reload" -> webView.reload()
         "stopLoading" -> webView.stopLoading()
+        "openMenu" -> {
+            val x = args.getMap(0).getInt("x")
+            val y = args.getMap(0).getInt("y")
+            webView.openMenu(x, y)
+        }
         "postMessage" -> try {
           val eventInitDict = JSONObject()
           eventInitDict.put("data", args.getString(0))

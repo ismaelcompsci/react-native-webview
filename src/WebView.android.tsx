@@ -99,6 +99,7 @@ const WebViewComponent = forwardRef<{}, AndroidWebViewProps>(({
   })
 
   useImperativeHandle(ref, () => ({
+    openMenu: ({ x, y }: { x: number; y: number; }) => webViewRef.current && Commands.openMenu(webViewRef.current, {x, y}),
     goForward: () => webViewRef.current && Commands.goForward(webViewRef.current),
     goBack: () => webViewRef.current && Commands.goBack(webViewRef.current),
     reload: () => {

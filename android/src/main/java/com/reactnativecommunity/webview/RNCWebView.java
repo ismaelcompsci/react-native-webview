@@ -146,6 +146,61 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
       this.menuCustomItems = menuCustomItems;
     }
 
+
+    public void openMenu(int x, int y) {
+        startActionMode(new ActionMode.Callback2() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+              for (int i = 0; i < menuCustomItems.size(); i++) {
+                menu.add(Menu.NONE, i, i, (menuCustomItems.get(i)).get("label"));
+              }
+              return true;
+            }
+    
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+              return false;
+            }
+    
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+              WritableMap wMap = Arguments.createMap();
+              RNCWebView.this.evaluateJavascript(
+                "(function(){return {selection: window.getSelection().toString()} })()",
+                new ValueCallback<String>() {
+                  @Override
+                  public void onReceiveValue(String selectionJson) {
+                    Map<String, String> menuItemMap = menuCustomItems.get(item.getItemId());
+                    wMap.putString("label", menuItemMap.get("label"));
+                    wMap.putString("key", menuItemMap.get("key"));
+                    String selectionText = "";
+                    try {
+                      selectionText = new JSONObject(selectionJson).getString("selection");
+                    } catch (JSONException ignored) {}
+                    wMap.putString("selectedText", selectionText);
+                    dispatchEvent(RNCWebView.this, new TopCustomMenuSelectionEvent(RNCWebViewWrapper.getReactTagFromWebView(RNCWebView.this), wMap));
+                    mode.finish();
+                  }
+                }
+              );
+              return true;
+            }
+    
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+              mode = null;
+            }
+    
+            @Override
+            public void onGetContentRect (ActionMode mode,
+                    View view,
+                    Rect outRect){
+                outRect.set(x, y, view.getWidth(), view.getHeight());
+              }
+          }, ActionMode.TYPE_FLOATING);
+    }
+
+
     @Override
     public ActionMode startActionMode(ActionMode.Callback callback, int type) {
       if(menuCustomItems == null ){
