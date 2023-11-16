@@ -1,5 +1,5 @@
 {
-  "name": "react-native-webview",
+  "name": "@ismaelcompsci/react-native-webview",
   "description": "React Native WebView component for iOS, Android, macOS, and Windows",
   "main": "index.js",
   "main-internal": "src/index.ts",
@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "version": "13.6.2",
-  "homepage": "https://github.com/react-native-webview/react-native-webview#readme",
+  "homepage": "https://github.com/ismaelcompsci/react-native-webview",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -72,7 +72,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-webview/react-native-webview.git"
+    "url": "https://github.com/ismaelcompsci/react-native-webview.git"
   },
   "files": [
     "android/src",
